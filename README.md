@@ -1,20 +1,51 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Abyssal Ink Runner
 
-# Run and deploy your AI Studio app
+![Abyssal Ink Runner](https://abyssal-ink-runner.vercel.app/logo.png)
 
-This contains everything you need to run your app locally.
+A dark, atmospheric, and visually stunning endless runner set in the deepest ocean abyss. Built with React, Vite, TS, Tailwind CSS, Canvas game engine, and Framer Motion. Integrated directly with Base Mainnet for trustless ERC-8021 and ERC-8004 capabilities.
 
-View your app in AI Studio: https://ai.studio/apps/2aaaab21-32cf-4dda-8c6f-a8a6d0c2e301
+## 🌊 Lore
 
-## Run Locally
+You are an Ink Wraith — a being made of living ink — racing through treacherous underwater trenches, ancient ruins, and bioluminescent voids while spreading your ink across the darkness. The deeper you go, the higher the pressure, and the darker the abyss becomes.
 
-**Prerequisites:**  Node.js
+## 🚀 Features
 
+- **Mobile First Canvas Core**: Smooth 60FPS endless running with unique gravity and momentum physics.
+- **Ink Mass Dynamics**: Start with 100 Ink Mass. Consume glowing abyssal essence to grow, while dashing and existing slowly drains your form.
+- **Wagmi / Viem Integration**: Pre-configured for Base Mainnet wallet connectivity.
+- **ERC-8021 Attribution**: Logs game states and "Say GM" proof on-chain with builder and instance attribution.
+- **ERC-8004 Agent Mode**: Supports Trustless AI operation capabilities.
+- **Full Express + Vite Engine**: Works in local preview and builds properly for production SSR and static hosting.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## ⚙️ Development
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start Local Server (Express + Vite)
+npm run dev
+```
+
+### Build
+
+```bash
+# Build Vite client & bundle Express server
+npm run build
+
+# Start Production Server
+npm run start
+```
+
+## 🧩 AI Orchestrator
+
+This project includes fully setup MCP and Agent endpoints configured in `app/api/mcp/route.ts` and `app/api/agent/route.ts` as requested by the Agent framework standards, along with the `agent-card.json`.
+
+- Agent Configuration endpoint: `/.well-known/agent-card.json`
+- Base Wallet Integrated: `0x29536D0bc1004ab274c4F0F59734Ad74D4559b7B`
+
+## 🔮 Builder Details
+Powered by Base | **Builder:** bc_w5vtza16
+App ID: 693ecf03d77c069a945bdecc
