@@ -36,6 +36,23 @@
     "dark-atmosphere-management",
     "mcp-command-execution"
   ],
+  "skills": [
+    {
+      "id": "abyssal-exploration",
+      "name": "Abyssal Exploration",
+      "description": "Deep sea exploration and navigation in the abyss"
+    },
+    {
+      "id": "ink-running",
+      "name": "Ink Running Mechanics",
+      "description": "Control and optimize ink mass, speed and dashing"
+    },
+    {
+      "id": "survival-orchestration",
+      "name": "Survival Orchestration",
+      "description": "Automated survival and reaction to procedural depths"
+    }
+  ],
   "supportedChains": ["eip155:8453"],
   "active": true,
   "status": "online"
