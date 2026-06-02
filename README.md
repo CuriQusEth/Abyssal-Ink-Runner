@@ -40,7 +40,7 @@ npm run start
 
 ## 🧩 AI Orchestrator & MCP Connection
 
-This project includes fully setup Model Context Protocol (MCP) and Agent endpoints using the Next.js 14 App Router format. It is designed to expose tools to AI agents for automated game interactions.
+This project includes fully setup Model Context Protocol (MCP) and Agent endpoints using standard Vercel serverless function format in the `/api` directory. It is designed to expose tools to AI agents for automated game interactions.
 
 ### Endpoints
 
