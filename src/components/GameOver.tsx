@@ -3,13 +3,17 @@ import { useGameStore } from '../store/useGameStore';
 import { motion } from 'framer-motion';
 import { useAccount, useSignMessage } from 'wagmi';
 import { getAttributionPayload } from '../lib/erc8021/attribution';
+import { useGMTransaction } from '../hooks/useGMTransaction';
+import { Sun } from 'lucide-react';
 
 export function GameOver() {
   const { score, bestScore, resetGame, setGameState } = useGameStore();
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  
+  const { sendGMTransaction, isPending: isGMPending } = useGMTransaction();
 
   // SIWE + ERC-8021 mock submission
   const handleRecordDescent = async () => {
@@ -65,19 +69,32 @@ export function GameOver() {
           </div>
         </div>
 
-        {!submitted ? (
-          <button 
-            onClick={handleRecordDescent}
-            disabled={isSubmitting}
-            className={`w-full py-4 text-white font-bold rounded-lg transition-all ${isSubmitting ? 'bg-violet-800 opacity-50 cursor-not-allowed' : 'bg-violet-600 hover:bg-violet-500 shadow-[0_0_20px_rgba(139,92,246,0.3)]'}`}
-          >
-            {isSubmitting ? 'SIGNING TRANSACTION...' : 'RECORD THIS DESCENT ON-CHAIN'}
-          </button>
-        ) : (
-          <div className="w-full py-4 bg-emerald-900/50 border border-emerald-500/50 text-emerald-400 font-bold rounded-lg animate-pulse">
-            DESCENT ETCHED IN THE ABYSS
-          </div>
-        )}
+        <div className="w-full flex flex-col gap-3">
+          {!submitted ? (
+            <button 
+              onClick={handleRecordDescent}
+              disabled={isSubmitting}
+              className={`w-full py-4 text-white font-bold rounded-lg transition-all ${isSubmitting ? 'bg-violet-800 opacity-50 cursor-not-allowed' : 'bg-violet-600 hover:bg-violet-500 shadow-[0_0_20px_rgba(139,92,246,0.3)]'}`}
+            >
+              {isSubmitting ? 'SIGNING TRANSACTION...' : 'RECORD THIS DESCENT ON-CHAIN'}
+            </button>
+          ) : (
+            <div className="w-full py-4 bg-emerald-900/50 border border-emerald-500/50 text-emerald-400 font-bold rounded-lg animate-pulse">
+              DESCENT ETCHED IN THE ABYSS
+            </div>
+          )}
+
+          {isConnected && (
+            <button
+              onClick={() => sendGMTransaction()}
+              disabled={isGMPending}
+              className="w-full justify-center px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+            >
+              <Sun className="w-4 h-4" />
+              {isGMPending ? 'SAYING GM...' : 'SAY GM'}
+            </button>
+          )}
+        </div>
 
         <div className="flex gap-4 w-full pt-4">
           <button 

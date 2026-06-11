@@ -83,50 +83,61 @@ async function startServer() {
 
   app.post("/api/mcp", (req, res) => {
     try {
-      const body = req.body;
+      const body = req.body || {};
+      const { method, params, id, jsonrpc } = body;
 
-      if (body.method === 'initialize') {
+      if (jsonrpc && jsonrpc !== '2.0') {
+        return res.status(400).json({ jsonrpc: "2.0", id: id || null, error: { code: -32600, message: "Invalid Request" } });
+      }
+
+      if (method === 'initialize') {
         res.json({
-          protocolVersion: '1.0.0',
-          capabilities: { tools: {}, prompts: {}, resources: {} },
-          serverInfo: { name: 'Abyssal Ink Runner MCP Endpoint', version: '1.0.0' }
+          jsonrpc: "2.0",
+          id,
+          result: {
+            protocolVersion: '1.0.0',
+            capabilities: { tools: {}, prompts: {}, resources: {} },
+            serverInfo: { name: 'Abyssal Ink Runner MCP Endpoint', version: '1.0.0' }
+          }
         });
         return;
       }
 
-      if (body.method === 'tools/list') {
-        res.json({ tools: mcpTools });
-        return;
-      }
-
-      if (body.method === 'tools/call') {
-        const { name, arguments: args } = body.params || {};
+      if (method === 'tools/list') {
         res.json({
-          content: [{ type: 'text', text: `Tool ${name} executed successfully in Abyssal Ink Runner context.` }],
-          isError: false
+          jsonrpc: "2.0",
+          id,
+          result: { tools: mcpTools }
         });
         return;
       }
 
-      if (body.method === 'prompts/list') {
-        res.json({ prompts: [] });
+      if (method === 'tools/call') {
+        const { name } = params || {};
+        res.json({
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [{ type: 'text', text: `Tool ${name} executed successfully in Abyssal Ink Runner context.` }],
+            isError: false
+          }
+        });
         return;
       }
 
-      if (body.method === 'resources/list') {
-        res.json({ resources: [] });
+      if (method === 'prompts/list') {
+        res.json({ jsonrpc: "2.0", id, result: { prompts: [] } });
         return;
       }
 
-      res.json({
-        status: "success",
-        message: "MCP command received",
-        agent: "Abyssal Ink Runner Orchestrator",
-        receivedAt: new Date().toISOString(),
-        payload: req.body
-      });
+      if (method === 'resources/list') {
+        res.json({ jsonrpc: "2.0", id, result: { resources: [] } });
+        return;
+      }
+
+      res.status(404).json({ jsonrpc: "2.0", id, error: { code: -32601, message: "Method not found" } });
     } catch (error) {
-      res.status(400).json({ error: "Invalid MCP request" });
+      res.status(400).json({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } });
     }
   });
 
