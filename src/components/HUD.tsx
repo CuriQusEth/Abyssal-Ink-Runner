@@ -13,6 +13,14 @@ export function HUD() {
         </span>
       </div>
 
+      <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-slate-900/80 backdrop-blur-md border border-cyan-500/30 rounded-full text-[11px] font-mono text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+        </span>
+        <span>Base Mainnet (Denim 200ms)</span>
+      </div>
+
       <div className="flex flex-col items-end">
         <span className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-1">Ink Mass</span>
         <div className="w-32 h-3 bg-slate-900 border border-slate-800 rounded-full overflow-hidden shadow-[0_0_10px_rgba(139,92,246,0.3)]">

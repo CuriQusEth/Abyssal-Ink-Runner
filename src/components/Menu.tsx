@@ -70,10 +70,22 @@ export function Menu() {
           </button>
         </div>
 
-        <div className="pt-8 text-xs text-slate-600 flex flex-col items-center gap-1">
-          <p>Tap / Space to Jump</p>
-          <p>Hold Shift to Däsh</p>
-          <p className="mt-4 text-[10px] text-slate-700">Powered by Base | Builder: bc_w5vtza16</p>
+        <div className="pt-8 text-xs text-slate-500 flex flex-col items-center gap-1.5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/80 border border-cyan-500/30 rounded-full text-[11px] text-cyan-400 font-mono shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 duration-200"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+            </span>
+            <span>Base Mainnet • Denim 200ms Canonical Blocks</span>
+          </div>
+          <div className="flex gap-4 text-slate-400 text-xs mt-1">
+            <span>Tap / Space: Jump</span>
+            <span>•</span>
+            <span>Shift: Dash</span>
+          </div>
+          <p className="mt-1 text-[10px] text-slate-600 font-mono">
+            Builder: bc_w5vtza16 | Chain ID: 8453
+          </p>
         </div>
       </div>
     </motion.div>

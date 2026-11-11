@@ -20,11 +20,30 @@ async function startServer() {
     next();
   });
 
+  // API - Network (Base Mainnet Denim)
+  app.get("/api/network", (req, res) => {
+    res.json({
+      network: "Base Mainnet",
+      chainId: 8453,
+      upgrade: "Denim",
+      activationDate: "2026-11-05T18:00:00Z",
+      blockTimeMs: 200,
+      canonicalBlocks: true,
+      flashblocksRetired: true,
+      rpcUrl: "https://mainnet.base.org",
+      builderCode: "bc_w5vtza16",
+      status: "active"
+    });
+  });
+
   // API - Agent
   app.get("/api/agent", (req, res) => {
     res.json({
       name: "Abyssal Ink Runner Orchestrator",
       status: "active",
+      network: "Base Mainnet (Denim 200ms Blocks)",
+      chainId: 8453,
+      builderCode: "bc_w5vtza16",
       wallet: "0x29536D0bc1004ab274c4F0F59734Ad74D4559b7B",
       platform: "Abyssal Ink Runner",
       version: "1.0.0"
@@ -35,12 +54,18 @@ async function startServer() {
     res.json({
       status: "success",
       message: "Agent command received",
+      network: "Base Mainnet (Denim)",
       receivedAt: new Date().toISOString(),
       payload: req.body
     });
   });
 
   const mcpTools = [
+    {
+      name: 'get_network_status',
+      description: 'Get Base Mainnet Denim network specifications (200ms canonical blocks, Flashblocks retired)',
+      inputSchema: { type: 'object', properties: {} }
+    },
     {
       name: 'get_race_status',
       description: 'Get the current running status of the race / runner in the abyss',
@@ -114,6 +139,31 @@ async function startServer() {
 
       if (method === 'tools/call') {
         const { name } = params || {};
+        if (name === 'get_network_status') {
+          res.json({
+            jsonrpc: "2.0",
+            id,
+            result: {
+              content: [{
+                type: 'text',
+                text: JSON.stringify({
+                  network: "Base Mainnet",
+                  chainId: 8453,
+                  upgrade: "Denim",
+                  status: "Active (Migrated from Flashblocks)",
+                  blockTime: "200ms canonical blocks",
+                  canonicalBlocksOnly: true,
+                  flashblocksRetired: true,
+                  rpc: "https://mainnet.base.org",
+                  builderCode: "bc_w5vtza16"
+                }, null, 2)
+              }],
+              isError: false
+            }
+          });
+          return;
+        }
+
         res.json({
           jsonrpc: "2.0",
           id,

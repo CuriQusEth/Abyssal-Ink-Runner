@@ -17,7 +17,7 @@ import { Sun } from 'lucide-react';
 
 function GlobalControls() {
   const { isConnected } = useAccount();
-  const { sendGMTransaction, isPending } = useGMTransaction();
+  const { sendGMTransaction, isPending, isSuccess } = useGMTransaction();
 
   if (!isConnected) return null;
 
@@ -26,10 +26,10 @@ function GlobalControls() {
       <button
         onClick={() => sendGMTransaction()}
         disabled={isPending}
-        className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+        className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold shadow-[0_0_10px_rgba(232,160,32,0.2)]"
       >
         <Sun className="w-4 h-4" />
-        {isPending ? 'SAYING GM...' : 'SAY GM'}
+        {isPending ? 'CONFIRMING IN 200ms...' : isSuccess ? 'GM RECORDED ✓' : 'SAY GM'}
       </button>
     </div>
   );
